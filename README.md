@@ -116,3 +116,82 @@ Then open your browser and go to: **http://127.0.0.1:5000**
 - **Reports**: Text files generated in `reports/` directory
 
 Both interfaces use the same SQLite database, so data is shared between CLI and web versions.
+
+## 🚀 Deploying to Vercel
+
+This project is configured for easy deployment to Vercel's serverless platform.
+
+### Prerequisites for Deployment
+- [Vercel CLI](https://vercel.com/cli) installed: `npm i -g vercel`
+- Vercel account (free tier available)
+- Git repository (GitHub, GitLab, or Bitbucket)
+
+### Deployment Steps
+
+1. **Install Vercel CLI** (if not already installed):
+   ```bash
+   npm i -g vercel
+   ```
+
+2. **Login to Vercel**:
+   ```bash
+   vercel login
+   ```
+
+3. **Deploy from your project directory**:
+   ```bash
+   vercel
+   ```
+   
+   Follow the prompts:
+   - Link to existing project? → N
+   - Project name → `payroll-management-system` (or your choice)
+   - Directory → `./` (current directory)
+   - Override settings? → N
+
+4. **For subsequent deployments**:
+   ```bash
+   vercel --prod
+   ```
+
+### Vercel Configuration Files
+
+The project includes these Vercel-specific files:
+
+- **`vercel.json`**: Deployment configuration
+- **`api/index.py`**: Serverless function entry point
+- **`.vercelignore`**: Files to exclude from deployment
+
+### Important Notes for Vercel Deployment
+
+⚠️ **Database Persistence**: 
+- Vercel serverless functions are stateless
+- SQLite database will be recreated on each cold start
+- For production, consider using a persistent database service like:
+  - [Vercel Postgres](https://vercel.com/docs/storage/vercel-postgres)
+  - [PlanetScale](https://planetscale.com/)
+  - [Railway](https://railway.app/)
+  - [Supabase](https://supabase.com/)
+
+⚠️ **File Storage**: 
+- Report files may not persist between function calls
+- Consider using Vercel Blob storage for persistent file storage
+
+### Alternative Database Solutions
+
+For production deployment, you can modify the `api/index.py` to use a cloud database:
+
+```python
+# Example for PostgreSQL (using psycopg2)
+import psycopg2
+from urllib.parse import urlparse
+
+DATABASE_URL = os.environ.get('DATABASE_URL')
+```
+
+### Environment Variables
+
+If using external services, set environment variables in Vercel dashboard:
+- Database connection strings
+- API keys
+- Other configuration values

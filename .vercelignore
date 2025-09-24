@@ -1,0 +1,44 @@
+# Local development files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.DS_Store
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Git files
+.git/
+.gitignore
+
+# Local database (will be recreated on Vercel)
+employees.db
+
+# Reports directory (optional, can be excluded if needed)
+reports/*.txt
+
+# Original CLI script (not needed for web deployment)
+payroll.sh
+
+# Development files
+app.py
+init_db.py
