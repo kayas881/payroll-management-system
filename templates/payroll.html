@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Payroll Records</h2>
+
+<h3>Generate Payroll</h3>
+<form method="post">
+  <label>Employee ID:</label><input type="number" name="emp_id"><br><br>
+  <label>Month (YYYY-MM):</label><input type="text" name="month"><br><br>
+  <label>Deductions:</label><input type="number" name="deductions"><br><br>
+  <button type="submit">Generate</button>
+</form>
+
+<hr>
+<h3>All Payrolls</h3>
+<table border="1">
+  <tr><th>ID</th><th>Name</th><th>Department</th><th>Month</th><th>Deductions</th><th>Net Salary</th></tr>
+  {% for p in payroll %}
+    <tr>
+      <td>{{ p.payroll_id }}</td>
+      <td>{{ p.name }}</td>
+      <td>{{ p.department }}</td>
+      <td>{{ p.month }}</td>
+      <td>{{ p.deductions }}</td>
+      <td>{{ p.net_salary }}</td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}
